@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demox</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<link rel="stylesheet" type="text/css" href="app.css">
+	<link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+</head>
+<body>
+
+<div id="app">
+<div class='row'>
+  <div v-for="phone in phones" class='product'>
+    <div class='product_inner'>
+      <img :src="'photos/'+phone.photo" width='100' height="200">
+      <p>{{phone.name}}</p>
+      <p>${{phone.price}}</p>
+      <button 
+      	v-bind:class="{ compared: isCompared(phone.id) }" 
+      	v-on:click="addCompare(phone.id)" 
+      	v-html="addCompare(phone.id) ? 'Compared' : 'Compare'">
+      </button>
+    </div>
+  </div>
+</div>
+
+<div v-if="comparedItems.length > 1" class="row">
+<table>
+	<thead>
+		<tr>
+			<th> </th>
+			<th v-for="phone in phones" v-if="isCompared(phone.id)">{{phone.name}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Price</th>
+			<td v-for="phone in phones" v-if="isCompared(phone.id)">${{phone.price}}</td>
+		</tr>
+		<tr>
+			<th>Memory</th>
+			<td v-for="phone in phones" v-if="isCompared(phone.id)">{{phone.memory}}</td>
+		</tr>
+		<tr>
+			<th>OS</th>
+			<td v-for="phone in phones" v-if="isCompared(phone.id)">{{phone.os}}</td>
+		</tr>
+		<tr>
+			<th>Camera</th>
+			<td v-for="phone in phones" v-if="isCompared(phone.id)">{{phone.camera}}</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
